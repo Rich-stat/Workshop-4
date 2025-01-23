@@ -1,0 +1,750 @@
+---
+title: "Statistics Workshop 4"
+format: 
+  html:
+    code-overflow: wrap
+    df-print: kable
+knitr:
+  opts_chunk:
+    collapse: false
+theme: cerulean
+editor: visual
+code-annotations: select
+---
+
+## Analysing Categorical Data {.tabset}
+
+This workshop introduces you to analysing:<br>
+
+-   **Chi-square goodness of fit test**: to test of observed frequencies match expected frequencies or proportions<br>
+-   **Contingency analysis for independent data**: to assess if one set of categorical variables is associated with another independent categorical variable<br>
+-   **Contingency analysis for related/paired data**: to assess if one set of categorical variables is associated with another related categorical variable<br>
+
+First, open RStudio and a new R Script file. Load the packages that you will be using. (Remember, if you are using a University computer or if you have not previously installed any of these packages before, you will need to install them first using `install.packages("nameofpackage")`).
+
+::: {.callout-important appearance="simple" collapse="true" title="Click to see packages to load (Copy and paste to Script editor)"}
+```{r}
+#| label: packages
+#| echo: TRUE
+#| message: FALSE
+#| warning: FALSE
+library(tidyverse)
+library(rio)
+library(knitr)
+library(epitools)
+library(rstatix)
+```
+:::
+
+<br>**SELECT THE RELEVANT TAB BELOW FOR YOUR DATA**
+
+::: panel-tabset
+### **GOODNESS OF FIT**
+
+::: {.callout-tip collapse="true" title="Click to read the Introduction" icon="true"}
+This example analyzes if observed frequencies of combinations of pea phenotypes (wround/wrinkled shape and green/yellow colour) match what we would expect from a dihybrid cross if the two genes controlling shape and colour are on different chromosomes (independent assortment).
+:::
+
+<br> **1. Download the Excel file *'chi-sq goodness of fit.xlsx'* from Canvas and save it to a folder that you will use as your working directory.**
+
+In RStudio, locate the file and set that location as your working directory.
+
+<br> **2. Import the file to RStudio and store it as a dataframe called `mendel`.**<br> The head() function shows us up to the first 6 rows (NB there are only 4 rows in this dataframe).<br> The summarise_all(class) function shows us what type of data is stored in the dataframe.
+
+```{r}
+#| label: import.good
+#| echo: TRUE
+#| eval: false
+mendel <- import("chi-sq goodness of fit.xlsx") #<1>
+head(mendel) #<2>
+
+mendel |>  #<3>
+summarise_all(class)
+```
+
+1.  Imports the excel file to a dataframe object callsed 'mendel'
+2.  Shows the first 6 rows of the dataframe
+3.  Shows the types of data in each column
+
+::: {.callout-note collapse="true" title="Click to see the output" icon="false"}
+The dataframe:
+
+```{r}
+#| label: import2a
+#| echo: false
+#| eval: true
+mendel <- import("chi-sq goodness of fit.xlsx")
+head(mendel) |>
+  kable(align = 'l')
+```
+
+The types of data in the two columns:
+
+```{r}
+#| label: import2b
+#| echo: false
+#| eval: true
+mendel |> 
+summarise_all(class)
+```
+:::
+
+<br> The Phenotype has been imported as character data. We need to convert it to a factor variable:
+
+```{r}
+#| label: phen-factor
+#| echo: TRUE
+#| eval: false
+mendel <- mendel |>
+  mutate(Phenotype = as.factor(Phenotype))  #<1>
+mendel |>
+  summarise_all(class)  #<2>
+```
+
+1.  Mutates (changes) the Phenotype column to be a factor and calls it Phenotype again (*ie* over-writes the column). Stored as a dataframe called mendel again (*ie* over-writes the existing dataframe).
+2.  The types of variables in the mendel dataframe
+
+::: {.callout-note collapse="true" title="Click to see the output" icon="false"}
+```{r}
+#| label: phen-factor1
+#| echo: false
+#| eval: true
+mendel <- mendel |>
+  mutate(Phenotype = as.factor(Phenotype)) 
+mendel |>
+  summarise_all(class) 
+```
+:::
+
+<br> <br> **3. The goodness of fit test**<br> To compare the observed frequencies with the expected ratio of 9:3:3:1
+
+```{r}
+#| label: chi.mendel
+#| echo: TRUE
+#| eval: false
+chisq_test(mendel$Observed, p = c(9/16, 3/16, 3/16, 1/16)) #<1>
+```
+
+1.  Compares observed data in mendel dataframe with expected proportions of 9:3:3:1)
+
+*NB* If you have expected numbers instead of ratios, just put each actual number in instead of the ratio numbers.<br>
+
+::: {.callout-note collapse="true" title="Click to see the output" icon="false"}
+```{r}
+#| label: chi.mendel1
+#| echo: false
+#| eval: true
+chisq_test(mendel$Observed, p = c(9/16, 3/16, 3/16, 1/16)) |> #<1>
+  kable()
+```
+
+*NB* Here, P = 0.0243, so there is a statistically significant difference somewhere between the observed and expected numbers.
+:::
+
+<br> **4. Get pairwise comparisons for the expected vs observed frequency for each Phenotype category** (*NB* this uses the Bonferroni method to reduce a type 1 error):
+
+```{r}
+#| label: pair.mendel
+#| echo: true
+#| eval: false
+pairwise_chisq_test_against_p(mendel$Observed, p = c(9, 3, 3, 1)/16, p.adjust.method = "bonferroni")
+```
+
+::: {.callout-note collapse="true" title="Click to see the output" icon="false"}
+```{r}
+#| label: pair.mendel1
+#| echo: false
+#| eval: true
+pairwise_chisq_test_against_p(mendel$Observed, p = c(9, 3, 3, 1)/16, p.adjust.method = "bonferroni") |>
+  kable()
+```
+
+*NB* use the **adjusted p-value (p.adj)** to reduce chance of a type 1 error because there are multiple comparisons here.<br> So, there are **no significant differences** (despite the overall P-value of 0.024)
+:::
+
+<br> **5. Effect size: Cramer's V**<br>
+
+```{r}
+#| label: effsize.mendel
+#| echo: TRUE
+#| eval: false
+mendel |>
+  select(Observed, Expected) |> #<1>
+  cramer_v()  #<2>
+```
+
+1.  Selects the Observed and the Expected columns from the dataframe
+2.  Carries out Cramer's V effect size calculation for those columns of data
+
+::: {.callout-note collapse="true" title="Click to see the output" icon="false"}
+```{r}
+#| label: effsize.mendel1
+#| echo: false
+#| eval: true
+mendel |>
+  select(Observed, Expected) |>
+  cramer_v()
+```
+
+Cramer's V ranges from 0 (no effect size between observed and expected data) to 1 (huge effect size):<br>
+
+-   Cramer's V \> 0.05 indicates a weak effect or difference<br>
+-   Cramer's V \> 0.1 indicates moderate effect or difference<br>
+-   Cramer's V \> 0.25 indicates a strong effect or difference<br>
+
+Here, one could interpret this as a weak to moderate effect (even though the difference between observed and expected frequencies for all categories are not statistically significant).
+:::
+
+<br>
+
+**6. Barplot**<br> `a.` First thing we need to do is to create a new dataframe that is long or 'tidy'; call the new dataframe `mendel.long`.
+
+```{r}
+#| label: tidy.mendel
+#| echo: true
+#| eval: true
+mendel.long <- mendel |>
+  gather(key=Obs.or.Exp, value=Counts, Observed, Expected) #<1> 
+```
+
+1.  key = new column called 'Obs.or.Exp' with Observed or Expected'; value = new column called 'Counts' with the counts in
+
+You can see what this looks like with:
+
+```{r}
+#| label: mend.long
+#| echo: TRUE
+#| eval: false
+mendel.long
+```
+
+and what types of data are in each column with:
+
+```{r}
+#| label: mend.long1
+#| echo: TRUE
+#| eval: false
+mendel.long |>
+  summarise_all(class)
+```
+
+::: {.callout-note collapse="true" title="Click to see the output" icon="false"}
+The 'mendel.long' dataframe:
+
+```{r}
+#| label: mend.long2
+#| echo: false
+#| eval: true
+mendel.long |>
+  kable()
+```
+
+The types of data in each column/variable.
+
+```{r}
+#| label: mend.long3
+#| echo: false
+#| eval: true
+mendel.long |>
+  summarise_all(class) |>
+  kable()
+```
+
+The Obs.or.Exp variable is a character variable. We need to change this to a factor (see next code)
+:::
+
+<br> b. We need to convert (mutate) the new Obs.or.Exp variable as a factor
+
+```{r obs.factor, echo = TRUE}
+mendel.long <- mendel.long |>
+  mutate(Obs.or.Exp = as.factor(Obs.or.Exp)) #<1>
+```
+
+1.  Mutate the Obs.or.Exp column to a factor variable. Over-write the dataframe (*ie* store it with the same name of `mendel.long`).
+
+<br> c. Re-order the factor levels Observed and Expected in `Obs.or.Exp` to make sure Observed appears on the left in the plot (and not in alphabetical order)<br> Also re-order the Phenotypes to stop them appearing in alphabetic order.
+
+```{r mendel.long.fct, echo = TRUE}
+mendel.long$Obs.or.Exp <- fct_relevel(mendel.long$Obs.or.Exp, "Observed", "Expected")  #<1>
+mendel.long$Phenotype <- fct_relevel(mendel.long$Phenotype, "Round.Green", "Wrinkled.Green", "Round.Yellow", "Wrinkled.Yellow") #<2>
+```
+
+1.  Re-orders the Obs.or.Exp output so that it appears with Observed first and then Expected (instead of in alphabetical order)
+2.  Re-orders the Phenotype output so that the categories appear in this order
+
+<br> d. The bar plot
+
+```{r}
+#| label: mendel.bar
+#| echo: TRUE
+#| eval: false
+mendel.long |> 
+  ggplot(aes(x = Phenotype, y = Counts, fill = Obs.or.Exp)) + #<1>
+  geom_col(position = "dodge", colour = "black") + 
+  scale_fill_grey() +
+  labs(title = "Bar plot of Observed and Expected Counts of Pea Plants")
+```
+
+1.  Sends the long `mendel.long` dataframe to ggplot, with Phenotype on the x-axis, Counts on the y-axis, and bars coloured according to Observed or Expected
+
+::: {.callout-note collapse="true" title="Click to see the bar plot" icon="false"}
+```{r}
+#| label: mendel.bar1
+#| echo: false
+#| eval: true
+mendel.long |> 
+  ggplot(aes(x = Phenotype, y = Counts, fill = Obs.or.Exp)) + #<1>
+  geom_col(position = "dodge", colour = "black") + 
+  scale_fill_grey() +
+  labs(title = "Bar plot of Observed and Expected Counts of Pea Plants")
+```
+:::
+
+<br> <br> **7. Save the dataframes**<br> Save the `mendel` and `mendel.long` dataframes as RData files so that you can use them again in RStudio without having to import the xlsx files and change them again:
+
+```{r mendel.RData, echo = TRUE}
+save(mendel, file="mendel.RData")
+save(mendel.long, file = "mendel_long.RData")
+```
+
+### **CONTINGENCY ANALYSIS - INDEPENDENT DATA**
+
+::: {.callout-tip collapse="true" title="Click to read the Introduction" icon="true"}
+This example assesses if there is a relationship between one categorical variable, namely mortality (surviving or dying) on the RMS Titanic, and another categorical variable of gender. In other words, was survival linked to the gender of the people on the ship?
+:::
+
+<br> **1. Download the Excel file *`titanic table data.xlsx`* from Canvas and save it to a folder that you will use as your working directory.**
+
+In RStudio, locate the file and set that location as your working directory.
+
+<br> **2. Import the file to RStudio and store it as a dataframe called *`titanic`*.**<br>
+
+```{r titanic.import, echo = TRUE}
+titanic <- import("titanic table data.xlsx")
+```
+
+<br> Check the dataframe
+
+-   head() returns the rows of the dataframe.<br>
+-   summarise_all(class) shows us the types of data of each variable.
+
+```{r}
+#| lable: tit.str
+#| echo: TRUE
+#| eval: false
+head(titanic) 
+
+titanic |>
+  summarise_all(class)
+```
+
+::: {.callout-tip collapse="true" title="Click to see the output" icon="false"}
+The dataframe (a contingency table) looks like this:
+
+```{r}
+#| lable: tit.str1
+#| echo: false
+#| eval: true
+head(titanic) |>
+  kable(align = 'l')
+```
+
+The types of variables are:
+
+```{r}
+#| lable: tit.str2
+#| echo: false
+#| eval: true
+titanic |>
+  summarise_all(class)
+```
+:::
+
+It shows that Survival and Gender are character variables. We want them to be **factors**:
+
+```{r}
+#| label: tit.factor
+#| echo: TRUE
+#| eval: false
+titanic <- titanic |>
+  mutate(Survival = as.factor(Survival), #<1>
+         Gender = as.factor(Gender))  #<2>
+
+titanic |>
+  summarise_all(class) #<3> 
+```
+
+1.  Make the Survival variable a factor
+2.  Make the Gender variable a factor
+3.  Check the data types in each column
+
+::: {.callout-tip collapse="true" title="Click to check the data types of the dataframe" icon="false"}
+```{r}
+#| label: tit.factor1
+#| echo: false
+#| eval: true
+titanic <- titanic |>
+  mutate(Survival = as.factor(Survival), #<1>
+         Gender = as.factor(Gender))
+titanic |>
+  summarise_all(class)
+```
+
+The Survival and Gender data columns are now factors.
+:::
+
+and set the order of the Gender levels with 'Male' appearing first (it just makes the next plot look better!)
+
+```{r}
+#| label: gender.order
+#| echo: TRUE
+#| eval: true
+titanic$Gender <- fct_relevel(titanic$Gender, "Male", "Female") #<1>
+```
+
+1.  Makes sure the 'levels' (Male and Female) in the Gender column appear with Male first
+
+<br> **3. Save this dataframe as an RData file** in case you want to use it again without having to import the xlsx file again and formatting it.
+
+```{r tit.RData, echo = TRUE}
+save(titanic, file = "titanic.RData")
+```
+
+<br> <br> **4. Create a contingency table:**
+
+```{r}
+#| label: tit.conTab
+#| echo: TRUE
+#| eval: false
+titanConTab <- xtabs(Count ~ Survival + Gender, data = titanic) #<1>
+titanConTab #<2>
+```
+
+1.  Creates a contingency table of the counts for Survival and Gender from the titanic dataframe using the xtabs() function, and stores the results in an object called `titanConTab`
+2.  View the table
+
+::: {.callout-tip collapse="true" title="Click to see the contingency table" icon="false"}
+```{r}
+#| label: tit.conTab1
+#| echo: false
+#| eval: true
+titanConTab <- xtabs(Count ~ Survival + Gender, data = titanic)
+titanConTab |>
+  kable(align = 'l')
+```
+:::
+
+<br> <br> **5. Create a mosaic plot**<br> This is a nice way to visualise a contingency table.
+
+```{r}
+#| label: tit.mosaic
+#| echo: TRUE
+#| eval: false
+par(pty = "s")        #<1> 
+mosaicplot(t(titanConTab), col = c("firebrick", "goldenrod1"), cex.axis = 1, 
+           xlab = "Gender", ylab = "Mortality", main = "Mosaic Plot of Titanic Data") #<2>
+```
+
+1.  Makes a square plot
+2.  Makes a mosiac plot from the titanConTab object with Gender on the x-axis and Mortality on the y-axis.
+
+::: {.callout-tip collapse="true" title="Click to see the mosaic plot" icon="false"}
+```{r}
+#| label: tit.mosaic1
+#| echo: false
+#| eval: true
+par(pty = "s")        # makes a square plot
+mosaicplot(t(titanConTab), col = c("firebrick", "goldenrod1"), cex.axis = 1, 
+           xlab = "Gender", ylab = "Mortality", main = "Mosaic Plot of Titanic Data")
+```
+:::
+
+<br> <br> **6. The chi-square contingency analysis**
+
+```{r}
+#| label: tit.cont1
+#| echo: TRUE
+#| eval: false
+titanChiSq <- titanConTab |>
+  chisq.test(correct = FALSE)
+titanChiSq
+```
+
+::: {.callout-tip collapse="true" title="Click to see the chi-square test results" icon="false"}
+```{r}
+#| label: tit.cont2
+#| echo: false
+#| eval: true
+titanChiSq <- titanConTab |>
+  chisq.test(correct = FALSE)
+titanChiSq
+```
+
+P\<\<0.001, so there is a highly statistically significant association between gender and mortality.
+:::
+
+<br> To see the observed (actual) counts:
+
+```{r}
+#| label: tit.cont3
+#| echo: TRUE
+#| eval: false
+titanChiSq$observed
+```
+
+::: {.callout-tip collapse="true" title="Click to see the observed counts" icon="false"}
+```{r}
+#| label: tit.cont4
+#| echo: false
+#| eval: true
+titanChiSq$observed
+```
+:::
+
+<br> To see the expected counts if the NH is true (*ie*, expected frequencies are those that one would expect if there was no influence of gender on survival.)
+
+```{r}
+#| label: tit.cont5
+#| echo: TRUE
+#| eval: false
+titanChiSq$expected
+```
+
+::: {.callout-tip collapse="true" title="Click to see the expected counts" icon="false"}
+```{r}
+#| label: tit.cont6
+#| echo: false
+#| eval: true
+titanChiSq$expected
+```
+:::
+
+<br> To see the standardised residuals
+
+```{r}
+#| label: tit.cont7
+#| echo: TRUE
+#| eval: false
+titanChiSq$residuals
+```
+
+::: {.callout-tip collapse="true" title="Click to see the standardised residuals" icon="false"}
+```{r}
+#| label: tit.cont8
+#| echo: false
+#| eval: true
+titanChiSq$residuals
+```
+:::
+
+Standardised residuals: if a value is more negative than -1.96 or higher than +1.96 for a category, there is a statistically significant difference between the observed and expected frequencies for that category. <br> <br>
+
+*NB* If any of the expected values are 5 or less, it is better to use **Fisher's exact test**.<br> If that is the case, use the following code instead of the chi-square code above:
+
+```{r}
+#| label: tit.fisher
+#| echo: TRUE
+#| eval: false
+titanicFish <- titanConTab |>
+  fisher.test()
+titanicFish 
+```
+
+::: {.callout-tip collapse="true" title="Click to see Fisher's Exact test result" icon="false"}
+```{r}
+#| label: tit.fisher1
+#| echo: false
+#| eval: true
+titanicFish <- titanConTab |>
+  fisher.test()
+titanicFish 
+```
+:::
+
+<br> **7. Calculate effect size**<br> **(a)** For 2x2 contingency tables use the **odds ratio**.
+
+```{r}
+#| label: tit.odds
+#| echo: TRUE
+#| eval: false
+titanicOR <- oddsratio(titanConTab, method = "wald")
+odds.Ratio <- titanicOR$measure[2, ] 
+odds.Ratio
+```
+
+::: {.callout-tip collapse="true" title="Click to see the Odds Ratio" icon="false"}
+```{r}
+#| label: tit.odds1
+#| echo: false
+#| eval: true
+titanicOR <- oddsratio(titanConTab, method = "wald")
+odds.Ratio <- titanicOR$measure[2, ] 
+odds.Ratio |>
+  kable(align = 'l')
+```
+
+Odds ratio = 11.4 The odds of dying for men were 11.4 times greater than for women.
+:::
+
+<br> **(b)** For contingency tables bigger than 2x2, *eg* a 3x2 or 3x3 table, use **Cramer's V** effect size.<br> The r script for that in this case would be:<br>
+
+`titanConTab |>`<br> `cramer_v()`<br> <br> Cramer's V ranges from 0 (no association between factors) to 1 (complete association):<br>
+
+-   Cramer's V \> 0.05 indicates a weak association<br>
+-   Cramer's V \> 0.1 indicates moderate association<br>
+-   Cramer's V \> 0.25 indicates a strong association<br> <br>
+
+
+### **CONTINGENCY ANALYSIS - RELATED DATA**
+::: {.callout-tip collapse="true" title="Click to read the Introduction" icon="true"}
+The McNemar test can be used to test if frequencies of paired categories are related - a sort of 'before' and 'after' arrangement where the same people are being tested. <br><br>
+This example analyses if an intervention can change the behaviour of participants in the study. 31 people who used electronic cigarettes ('vapers') and 31 people who did not use electronic cigarettes ('non-vapers') were shown a video to show the harmful effects of vaping. After 6 months, each person was asked if they used electronic cigarettes. Consequently, each participant was 'measured' twice; once before the video and once after. The 'before' and 'after' measurements are therefore related because they come from the same person.
+:::
+
+<br> **1. Download the Excel file *mcnemar data.xlsx* from Canvas and save it to a folder that you will use as your working directory.**
+
+In RStudio, locate the file and set that location as your working directory.
+
+<br> **2. Import the file to RStudio and store it as a dataframe called *smoke*.**<br>
+
+```{r smoke.str, echo = TRUE}
+# Import the data to a dataframe:
+smoke <- import("mcnemar data.xlsx")
+```
+
+<br>**3. Examine the data**<br>
+
+- The head() function shows us the first 6 rows so we can check the arrangement of the data.<br>
+- The summarise_all(class) function shows us what type of data is stored in the dataframe.<br>
+
+```{r}
+#| label: smoke.ex
+#| echo: TRUE
+#| eval: false
+smoke |>
+  head()
+
+smoke |>
+  summarise_all(class)
+```
+
+::: {.callout-tip collapse="true" title="Click to see the data" icon="false"}
+```{r}
+#| label: smoke.ex1
+#| echo: false
+#| eval: true
+smoke |>
+  head() |>
+  kable(align = 'l')
+```
+:::
+
+::: {.callout-tip collapse="true" title="Click to see the data types" icon="false"}
+```{r}
+#| label: smoke.ex2
+#| echo: false
+#| eval: true
+smoke |>
+  summarise_all(class)
+```
+:::
+We can see that the Before and After variables have been imported as 'character' data. <br><br> We need to convert these to factors:
+
+```{r}
+#| label: smoke.factors
+#| echo: TRUE
+#| eval: false
+smoke <- smoke |>
+  mutate(Before = as.factor(Before),
+         After = as.factor(After))
+         
+smoke |>
+  summarise_all(class)
+```
+
+::: {.callout-tip collapse="true" title="Click to see the data types" icon="false"}
+```{r}
+#| label: smoke.factors1
+#| echo: false
+#| eval: true
+smoke <- smoke |>
+  mutate(Before = as.factor(Before),
+         After = as.factor(After))
+         
+smoke |>
+  summarise_all(class)
+```
+:::
+
+
+<br> **4. We can now create a contingency table called '*smokeConTab*'**<br>
+
+```{r}
+#| label: smokeCT
+#| echo: TRUE
+#| eval: false
+smokeConTab <- xtabs(Count ~ Before + After, data = smoke)
+smokeConTab
+```
+
+::: {.callout-tip collapse="true" title="Click to see the contingency table" icon="false"}
+```{r}
+#| label: smokeCT1
+#| echo: false
+#| eval: true
+smokeConTab <- xtabs(Count ~ Before + After, data = smoke)
+smokeConTab
+```
+:::
+
+<br>We can also create a mosaic plot to visualise the contingency table data:
+
+```{r}
+#| label: smokeCT.mosaic
+#| echo: TRUE
+#| eval: false
+par(pty = "s")        # makes a square plot
+mosaicplot(t(smokeConTab), col = c("lightgreen", "gold"), cex.axis = 1, 
+           xlab = "After", ylab = "Before", main = "Mosaic Plot of Vaping Data")
+```
+
+::: {.callout-tip collapse="true" title="Click to see the mosaic plot" icon="false"}
+```{r}
+#| label: smokeCT.mosaic1
+#| echo: false
+#| eval: true
+par(pty = "s")        # makes a square plot
+mosaicplot(t(smokeConTab), col = c("lightgreen", "gold"), cex.axis = 1, 
+           xlab = "After", ylab = "Before", main = "Mosaic Plot of Vaping Data")
+```
+:::
+
+<br> **5. The McNemar test**
+
+```{r}
+#| label: mcnemar
+#| echo: TRUE
+#| eval: false
+mcnemar_test(smokeConTab)
+```
+
+::: {.callout-tip collapse="true" title="Click to see the McNemar test result & conclusions" icon="false"}
+```{r}
+#| label: mcnemar1
+#| echo: false
+#| eval: true
+mcnemar_test(smokeConTab) |>
+  kable()
+```
+P = 0.007, so there is a statistically significant association. Vapers and non-vapers responded to intervention differently; in other words, the response to the video was associated with their vaping status at the start.<br>
+
+-   Of 31 non-vapers at the start, most (25) were still non-vapers 6 months after intervention; only 6 changed their habit<br>
+-   Of 31 vapers at the start, most (21) changed to become non-vapers after 6 months, and only 10 remained vapers<br> <br> <br>
+:::
+
+<br> **6. Effect size: odds ratio**<br>
+For the McNemar test, this is simply the ratio of the larger number of people who changed behaviour divded by the smaller number of people who changed behaviour.  <br><br>
+In this case, we had 21 people who were vapers who became non-vapers and 6 people who were non-vapers who became vapers.<br><br>
+Therefore the Odds Ratio = 21/6 = 3.5<br><br>
+Vapers were 3.5 times more likely to change their behaviour than non-vapers.
+:::
