@@ -440,7 +440,7 @@ titanConTab |>
 #| label: tit.mosaic
 #| echo: TRUE
 #| eval: false
-par(pty = "s")        #<1> 
+par(pty = "s", las = 2)        #<1> 
 mosaicplot(t(titanConTab), col = c("firebrick", "goldenrod1"), cex.axis = 1, 
            xlab = "Gender", ylab = "Mortality", main = "Mosaic Plot of Titanic Data") #<2>
 ```
@@ -453,7 +453,7 @@ mosaicplot(t(titanConTab), col = c("firebrick", "goldenrod1"), cex.axis = 1,
 #| label: tit.mosaic1
 #| echo: false
 #| eval: true
-par(pty = "s")        # makes a square plot
+par(pty = "s", las = 2)        # makes a square plot
 mosaicplot(t(titanConTab), col = c("firebrick", "goldenrod1"), cex.axis = 1, 
            xlab = "Gender", ylab = "Mortality", main = "Mosaic Plot of Titanic Data")
 ```
@@ -594,11 +594,10 @@ Odds ratio = 11.4 The odds of dying for men were 11.4 times greater than for wom
 -   Cramer's V \> 0.1 indicates moderate association<br>
 -   Cramer's V \> 0.25 indicates a strong association<br> <br>
 
-
 ### **CONTINGENCY ANALYSIS - RELATED DATA**
+
 ::: {.callout-tip collapse="true" title="Click to read the Introduction" icon="true"}
-The McNemar test can be used to test if frequencies of paired categories are related - a sort of 'before' and 'after' arrangement where the same people are being tested. <br><br>
-This example analyses if an intervention can change the behaviour of participants in the study. 31 people who used electronic cigarettes ('vapers') and 31 people who did not use electronic cigarettes ('non-vapers') were shown a video to show the harmful effects of vaping. After 6 months, each person was asked if they used electronic cigarettes. Consequently, each participant was 'measured' twice; once before the video and once after. The 'before' and 'after' measurements are therefore related because they come from the same person.
+The McNemar test can be used to test if frequencies of paired categories are related - a sort of 'before' and 'after' arrangement where the same people are being tested. <br><br> This example analyses if an intervention can change the behaviour of participants in the study. 31 people who used electronic cigarettes ('vapers') and 31 people who did not use electronic cigarettes ('non-vapers') were shown a video to show the harmful effects of vaping. After 6 months, each person was asked if they used electronic cigarettes. Consequently, each participant was 'measured' twice; once before the video and once after. The 'before' and 'after' measurements are therefore related because they come from the same person.
 :::
 
 <br> **1. Download the Excel file *mcnemar data.xlsx* from Canvas and save it to a folder that you will use as your working directory.**
@@ -614,8 +613,8 @@ smoke <- import("mcnemar data.xlsx")
 
 <br>**3. Examine the data**<br>
 
-- The head() function shows us the first 6 rows so we can check the arrangement of the data.<br>
-- The summarise_all(class) function shows us what type of data is stored in the dataframe.<br>
+-   The head() function shows us the first 6 rows so we can check the arrangement of the data.<br>
+-   The summarise_all(class) function shows us what type of data is stored in the dataframe.<br>
 
 ```{r}
 #| label: smoke.ex
@@ -648,6 +647,7 @@ smoke |>
   summarise_all(class)
 ```
 :::
+
 We can see that the Before and After variables have been imported as 'character' data. <br><br> We need to convert these to factors:
 
 ```{r}
@@ -676,7 +676,6 @@ smoke |>
 ```
 :::
 
-
 <br> **4. We can now create a contingency table called '*smokeConTab*'**<br>
 
 ```{r}
@@ -703,7 +702,7 @@ smokeConTab
 #| label: smokeCT.mosaic
 #| echo: TRUE
 #| eval: false
-par(pty = "s")        # makes a square plot
+par(pty = "s", las = 2)        # makes a square plot
 mosaicplot(t(smokeConTab), col = c("lightgreen", "gold"), cex.axis = 1, 
            xlab = "After", ylab = "Before", main = "Mosaic Plot of Vaping Data")
 ```
@@ -713,7 +712,7 @@ mosaicplot(t(smokeConTab), col = c("lightgreen", "gold"), cex.axis = 1,
 #| label: smokeCT.mosaic1
 #| echo: false
 #| eval: true
-par(pty = "s")        # makes a square plot
+par(pty = "s", las = 2)        # makes a square plot
 mosaicplot(t(smokeConTab), col = c("lightgreen", "gold"), cex.axis = 1, 
            xlab = "After", ylab = "Before", main = "Mosaic Plot of Vaping Data")
 ```
@@ -736,15 +735,12 @@ mcnemar_test(smokeConTab)
 mcnemar_test(smokeConTab) |>
   kable()
 ```
+
 P = 0.007, so there is a statistically significant association. Vapers and non-vapers responded to intervention differently; in other words, the response to the video was associated with their vaping status at the start.<br>
 
 -   Of 31 non-vapers at the start, most (25) were still non-vapers 6 months after intervention; only 6 changed their habit<br>
 -   Of 31 vapers at the start, most (21) changed to become non-vapers after 6 months, and only 10 remained vapers<br> <br> <br>
 :::
 
-<br> **6. Effect size: odds ratio**<br>
-For the McNemar test, this is simply the ratio of the larger number of people who changed behaviour divded by the smaller number of people who changed behaviour.  <br><br>
-In this case, we had 21 people who were vapers who became non-vapers and 6 people who were non-vapers who became vapers.<br><br>
-Therefore the Odds Ratio = 21/6 = 3.5<br><br>
-Vapers were 3.5 times more likely to change their behaviour than non-vapers.
+<br> **6. Effect size: odds ratio**<br> For the McNemar test, this is simply the ratio of the larger number of people who changed behaviour divded by the smaller number of people who changed behaviour. <br><br> In this case, we had 21 people who were vapers who became non-vapers and 6 people who were non-vapers who became vapers.<br><br> Therefore the Odds Ratio = 21/6 = 3.5<br><br> Vapers were 3.5 times more likely to change their behaviour than non-vapers.
 :::
