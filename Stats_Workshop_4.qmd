@@ -525,7 +525,7 @@ titanChiSq$expected
 #| label: tit.cont7
 #| echo: TRUE
 #| eval: false
-titanChiSq$residuals
+titanChiSq$stdres
 ```
 
 ::: {.callout-tip collapse="true" title="Click to see the standardised residuals" icon="false"}
@@ -533,7 +533,7 @@ titanChiSq$residuals
 #| label: tit.cont8
 #| echo: false
 #| eval: true
-titanChiSq$residuals
+titanChiSq$stdres
 ```
 :::
 
