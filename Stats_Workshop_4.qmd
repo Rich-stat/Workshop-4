@@ -12,7 +12,14 @@ editor: visual
 code-annotations: select
 ---
 
-## Analysing Categorical Data {.tabset}
+```{r}
+#| label: kable
+#| echo: false
+#| eval: true
+library(knitr)
+```
+
+## Analysing Categorical Data
 
 This workshop introduces you to analysing:<br>
 
@@ -30,7 +37,6 @@ First, open RStudio and a new R Script file. Load the packages that you will be 
 #| warning: FALSE
 library(tidyverse)
 library(rio)
-library(knitr)
 library(epitools)
 library(rstatix)
 ```

@@ -96,8 +96,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="analysing-categorical-data" class="level2 tabset">
-<h2 class="tabset anchored" data-anchor-id="analysing-categorical-data">Analysing Categorical Data</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'knitr' was built under R version 4.4.2</code></pre>
+</div>
+</div>
+<section id="analysing-categorical-data" class="level2">
+<h2 class="anchored" data-anchor-id="analysing-categorical-data">Analysing Categorical Data</h2>
 <p>This workshop introduces you to analysing:<br></p>
 <ul>
 <li><strong>Chi-square goodness of fit test</strong>: to test of observed frequencies match expected frequencies or proportions<br></li>
@@ -118,11 +123,10 @@ Click to see packages to load (Copy and paste to Script editor)
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epitools)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(epitools)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -152,24 +156,24 @@ Click to read the Introduction
 <p>In RStudio, locate the file and set that location as your working directory.</p>
 <p><br> <strong>2. Import the file to RStudio and store it as a dataframe called <code>mendel</code>.</strong><br> The head() function shows us up to the first 6 rows (NB there are only 4 rows in this dataframe).<br> The summarise_all(class) function shows us what type of data is stored in the dataframe.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-2"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-1" class="code-annotation-target"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a>mendel <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"chi-sq goodness of fit.xlsx"</span>)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mendel)</span>
-<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3">3</button><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a>mendel <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-2-5"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-1" class="code-annotation-target"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a>mendel <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"chi-sq goodness of fit.xlsx"</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2">2</button><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mendel)</span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3">3</button><span id="annotated-cell-3-4" class="code-annotation-target"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>mendel <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="1" data-code-annotation="1">Imports the excel file to a dataframe object callsed ‘mendel’</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="1" data-code-annotation="1">Imports the excel file to a dataframe object callsed ‘mendel’</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="2" data-code-annotation="2">Shows the first 6 rows of the dataframe</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="2" data-code-annotation="2">Shows the first 6 rows of the dataframe</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="4" data-code-annotation="3">Shows the types of data in each column</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="4" data-code-annotation="3">Shows the types of data in each column</span>
 </dd>
 </dl>
 </div>
@@ -250,19 +254,19 @@ Click to see the output
 </div>
 <p><br> The Phenotype has been imported as character data. We need to convert it to a factor variable:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a>mendel <span class="ot">&lt;-</span> mendel <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-2" class="code-annotation-target"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Phenotype =</span> <span class="fu">as.factor</span>(Phenotype))</span>
-<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a>mendel <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2">2</button><span id="annotated-cell-3-4" class="code-annotation-target"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a>mendel <span class="ot">&lt;-</span> mendel <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1">1</button><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Phenotype =</span> <span class="fu">as.factor</span>(Phenotype))</span>
+<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>mendel <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2">2</button><span id="annotated-cell-4-4" class="code-annotation-target"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="2" data-code-annotation="1">Mutates (changes) the Phenotype column to be a factor and calls it Phenotype again (<em>ie</em> over-writes the column). Stored as a dataframe called mendel again (<em>ie</em> over-writes the existing dataframe).</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="1">Mutates (changes) the Phenotype column to be a factor and calls it Phenotype again (<em>ie</em> over-writes the column). Stored as a dataframe called mendel again (<em>ie</em> over-writes the existing dataframe).</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="4" data-code-annotation="2">The types of variables in the mendel dataframe</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="2">The types of variables in the mendel dataframe</span>
 </dd>
 </dl>
 </div>
@@ -306,12 +310,12 @@ Click to see the output
 </div>
 <p><br> <br> <strong>3. The goodness of fit test</strong><br> To compare the observed frequencies with the expected ratio of 9:3:3:1</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-4"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1">1</button><span id="annotated-cell-4-1" class="code-annotation-target"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq_test</span>(mendel<span class="sc">$</span>Observed, <span class="at">p =</span> <span class="fu">c</span>(<span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-1" class="code-annotation-target"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq_test</span>(mendel<span class="sc">$</span>Observed, <span class="at">p =</span> <span class="fu">c</span>(<span class="dv">9</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">16</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">16</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="1" data-code-annotation="1">Compares observed data in mendel dataframe with expected proportions of 9:3:3:1)</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="1" data-code-annotation="1">Compares observed data in mendel dataframe with expected proportions of 9:3:3:1)</span>
 </dd>
 </dl>
 </div>
@@ -361,7 +365,7 @@ Click to see the output
 </div>
 <p><br> <strong>4. Get pairwise comparisons for the expected vs observed frequency for each Phenotype category</strong> (<em>NB</em> this uses the Bonferroni method to reduce a type 1 error):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise_chisq_test_against_p</span>(mendel<span class="sc">$</span>Observed, <span class="at">p =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>)<span class="sc">/</span><span class="dv">16</span>, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairwise_chisq_test_against_p</span>(mendel<span class="sc">$</span>Observed, <span class="at">p =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>)<span class="sc">/</span><span class="dv">16</span>, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the output">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
@@ -457,18 +461,18 @@ Click to see the output
 </div>
 <p><br> <strong>5. Effect size: Cramer’s V</strong><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-6"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a>mendel <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Observed, Expected) <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2">2</button><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cramer_v</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a>mendel <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Observed, Expected) <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2">2</button><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cramer_v</span>()</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="2" data-code-annotation="1">Selects the Observed and the Expected columns from the dataframe</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="1">Selects the Observed and the Expected columns from the dataframe</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="2">Carries out Cramer’s V effect size calculation for those columns of data</span>
+<span data-code-cell="annotated-cell-7" data-code-lines="3" data-code-annotation="2">Carries out Cramer’s V effect size calculation for those columns of data</span>
 </dd>
 </dl>
 </div>
@@ -503,25 +507,25 @@ Click to see the output
 <p><br></p>
 <p><strong>6. Barplot</strong><br> <code>a.</code> First thing we need to do is to create a new dataframe that is long or ‘tidy’; call the new dataframe <code>mendel.long</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-7"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a>mendel.long <span class="ot">&lt;-</span> mendel <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-2" class="code-annotation-target"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key=</span>Obs.or.Exp, <span class="at">value=</span>Counts, Observed, Expected)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-8"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a>mendel.long <span class="ot">&lt;-</span> mendel <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-2" class="code-annotation-target"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key=</span>Obs.or.Exp, <span class="at">value=</span>Counts, Observed, Expected)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-7" data-code-lines="2" data-code-annotation="1">key = new column called ‘Obs.or.Exp’ with Observed or Expected’; value = new column called ‘Counts’ with the counts in</span>
+<span data-code-cell="annotated-cell-8" data-code-lines="2" data-code-annotation="1">key = new column called ‘Obs.or.Exp’ with Observed or Expected’; value = new column called ‘Counts’ with the counts in</span>
 </dd>
 </dl>
 </div>
 </div>
 <p>You can see what this looks like with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mendel.long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mendel.long</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>and what types of data are in each column with:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mendel.long <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mendel.long <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-note no-icon callout-titled" title="Click to see the output">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
@@ -618,46 +622,46 @@ Click to see the output
 </div>
 <p><br> b. We need to convert (mutate) the new Obs.or.Exp variable as a factor</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-10"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-10-1"><a href="#annotated-cell-10-1" aria-hidden="true" tabindex="-1"></a>mendel.long <span class="ot">&lt;-</span> mendel.long <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-10" data-target-annotation="1">1</button><span id="annotated-cell-10-2" class="code-annotation-target"><a href="#annotated-cell-10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Obs.or.Exp =</span> <span class="fu">as.factor</span>(Obs.or.Exp))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-11"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-11-1"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a>mendel.long <span class="ot">&lt;-</span> mendel.long <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1">1</button><span id="annotated-cell-11-2" class="code-annotation-target"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Obs.or.Exp =</span> <span class="fu">as.factor</span>(Obs.or.Exp))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-10" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-10" data-code-lines="2" data-code-annotation="1">Mutate the Obs.or.Exp column to a factor variable. Over-write the dataframe (<em>ie</em> store it with the same name of <code>mendel.long</code>).</span>
+<span data-code-cell="annotated-cell-11" data-code-lines="2" data-code-annotation="1">Mutate the Obs.or.Exp column to a factor variable. Over-write the dataframe (<em>ie</em> store it with the same name of <code>mendel.long</code>).</span>
 </dd>
 </dl>
 </div>
 </div>
 <p><br> c.&nbsp;Re-order the factor levels Observed and Expected in <code>Obs.or.Exp</code> to make sure Observed appears on the left in the plot (and not in alphabetical order)<br> Also re-order the Phenotypes to stop them appearing in alphabetic order.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-11"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1">1</button><span id="annotated-cell-11-1" class="code-annotation-target"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a>mendel.long<span class="sc">$</span>Obs.or.Exp <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(mendel.long<span class="sc">$</span>Obs.or.Exp, <span class="st">"Observed"</span>, <span class="st">"Expected"</span>)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="2">2</button><span id="annotated-cell-11-2" class="code-annotation-target"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a>mendel.long<span class="sc">$</span>Phenotype <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(mendel.long<span class="sc">$</span>Phenotype, <span class="st">"Round.Green"</span>, <span class="st">"Wrinkled.Green"</span>, <span class="st">"Round.Yellow"</span>, <span class="st">"Wrinkled.Yellow"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-12"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1">1</button><span id="annotated-cell-12-1" class="code-annotation-target"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a>mendel.long<span class="sc">$</span>Obs.or.Exp <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(mendel.long<span class="sc">$</span>Obs.or.Exp, <span class="st">"Observed"</span>, <span class="st">"Expected"</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="2">2</button><span id="annotated-cell-12-2" class="code-annotation-target"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a>mendel.long<span class="sc">$</span>Phenotype <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(mendel.long<span class="sc">$</span>Phenotype, <span class="st">"Round.Green"</span>, <span class="st">"Wrinkled.Green"</span>, <span class="st">"Round.Yellow"</span>, <span class="st">"Wrinkled.Yellow"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="1" data-code-annotation="1">Re-orders the Obs.or.Exp output so that it appears with Observed first and then Expected (instead of in alphabetical order)</span>
+<span data-code-cell="annotated-cell-12" data-code-lines="1" data-code-annotation="1">Re-orders the Obs.or.Exp output so that it appears with Observed first and then Expected (instead of in alphabetical order)</span>
 </dd>
-<dt data-target-cell="annotated-cell-11" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="2" data-code-annotation="2">Re-orders the Phenotype output so that the categories appear in this order</span>
+<span data-code-cell="annotated-cell-12" data-code-lines="2" data-code-annotation="2">Re-orders the Phenotype output so that the categories appear in this order</span>
 </dd>
 </dl>
 </div>
 </div>
 <p><br> d.&nbsp;The bar plot</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-12"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-12-1"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a>mendel.long <span class="sc">|&gt;</span> </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1">1</button><span id="annotated-cell-12-2" class="code-annotation-target"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Phenotype, <span class="at">y =</span> Counts, <span class="at">fill =</span> Obs.or.Exp)) <span class="sc">+</span></span>
-<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="annotated-cell-12-4"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>() <span class="sc">+</span></span>
-<span id="annotated-cell-12-5"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar plot of Observed and Expected Counts of Pea Plants"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-13"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1" aria-hidden="true" tabindex="-1"></a>mendel.long <span class="sc">|&gt;</span> </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-13" data-target-annotation="1">1</button><span id="annotated-cell-13-2" class="code-annotation-target"><a href="#annotated-cell-13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Phenotype, <span class="at">y =</span> Counts, <span class="at">fill =</span> Obs.or.Exp)) <span class="sc">+</span></span>
+<span id="annotated-cell-13-3"><a href="#annotated-cell-13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"dodge"</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
+<span id="annotated-cell-13-4"><a href="#annotated-cell-13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_grey</span>() <span class="sc">+</span></span>
+<span id="annotated-cell-13-5"><a href="#annotated-cell-13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Bar plot of Observed and Expected Counts of Pea Plants"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-13" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-12" data-code-lines="2" data-code-annotation="1">Sends the long <code>mendel.long</code> dataframe to ggplot, with Phenotype on the x-axis, Counts on the y-axis, and bars coloured according to Observed or Expected</span>
+<span data-code-cell="annotated-cell-13" data-code-lines="2" data-code-annotation="1">Sends the long <code>mendel.long</code> dataframe to ggplot, with Phenotype on the x-axis, Counts on the y-axis, and bars coloured according to Observed or Expected</span>
 </dd>
 </dl>
 </div>
@@ -688,8 +692,8 @@ Click to see the bar plot
 </div>
 <p><br> <br> <strong>7. Save the dataframes</strong><br> Save the <code>mendel</code> and <code>mendel.long</code> dataframes as RData files so that you can use them again in RStudio without having to import the xlsx files and change them again:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(mendel, <span class="at">file=</span><span class="st">"mendel.RData"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(mendel.long, <span class="at">file =</span> <span class="st">"mendel_long.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(mendel, <span class="at">file=</span><span class="st">"mendel.RData"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(mendel.long, <span class="at">file =</span> <span class="st">"mendel_long.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
@@ -713,7 +717,7 @@ Click to read the Introduction
 <p>In RStudio, locate the file and set that location as your working directory.</p>
 <p><br> <strong>2. Import the file to RStudio and store it as a dataframe called <em><code>titanic</code></em>.</strong><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"titanic table data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"titanic table data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br> Check the dataframe</p>
 <ul>
@@ -721,10 +725,10 @@ Click to read the Introduction
 <li>summarise_all(class) shows us the types of data of each variable.</li>
 </ul>
 <div class="cell" data-lable="tit.str">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(titanic) </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">|&gt;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(titanic) </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the output">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
@@ -802,25 +806,25 @@ Click to see the output
 </div>
 <p>It shows that Survival and Gender are character variables. We want them to be <strong>factors</strong>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-17"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-17-1"><a href="#annotated-cell-17-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> titanic <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="1">1</button><span id="annotated-cell-17-2" class="code-annotation-target"><a href="#annotated-cell-17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Survival =</span> <span class="fu">as.factor</span>(Survival),</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="2">2</button><span id="annotated-cell-17-3" class="code-annotation-target"><a href="#annotated-cell-17-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">as.factor</span>(Gender))</span>
-<span id="annotated-cell-17-4"><a href="#annotated-cell-17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-17-5"><a href="#annotated-cell-17-5" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">|&gt;</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-17" data-target-annotation="3">3</button><span id="annotated-cell-17-6" class="code-annotation-target"><a href="#annotated-cell-17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-18"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-18-1"><a href="#annotated-cell-18-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> titanic <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="1">1</button><span id="annotated-cell-18-2" class="code-annotation-target"><a href="#annotated-cell-18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Survival =</span> <span class="fu">as.factor</span>(Survival),</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="2">2</button><span id="annotated-cell-18-3" class="code-annotation-target"><a href="#annotated-cell-18-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">as.factor</span>(Gender))</span>
+<span id="annotated-cell-18-4"><a href="#annotated-cell-18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-18-5"><a href="#annotated-cell-18-5" aria-hidden="true" tabindex="-1"></a>titanic <span class="sc">|&gt;</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="3">3</button><span id="annotated-cell-18-6" class="code-annotation-target"><a href="#annotated-cell-18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-17" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-17" data-code-lines="2" data-code-annotation="1">Make the Survival variable a factor</span>
+<span data-code-cell="annotated-cell-18" data-code-lines="2" data-code-annotation="1">Make the Survival variable a factor</span>
 </dd>
-<dt data-target-cell="annotated-cell-17" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-17" data-code-lines="3" data-code-annotation="2">Make the Gender variable a factor</span>
+<span data-code-cell="annotated-cell-18" data-code-lines="3" data-code-annotation="2">Make the Gender variable a factor</span>
 </dd>
-<dt data-target-cell="annotated-cell-17" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-18" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-17" data-code-lines="6" data-code-annotation="3">Check the data types in each column</span>
+<span data-code-cell="annotated-cell-18" data-code-lines="6" data-code-annotation="3">Check the data types in each column</span>
 </dd>
 </dl>
 </div>
@@ -865,33 +869,33 @@ Click to check the data types of the dataframe
 </div>
 <p>and set the order of the Gender levels with ‘Male’ appearing first (it just makes the next plot look better!)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-18"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-18" data-target-annotation="1">1</button><span id="annotated-cell-18-1" class="code-annotation-target"><a href="#annotated-cell-18-1" aria-hidden="true" tabindex="-1"></a>titanic<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(titanic<span class="sc">$</span>Gender, <span class="st">"Male"</span>, <span class="st">"Female"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-19"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-19" data-target-annotation="1">1</button><span id="annotated-cell-19-1" class="code-annotation-target"><a href="#annotated-cell-19-1" aria-hidden="true" tabindex="-1"></a>titanic<span class="sc">$</span>Gender <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(titanic<span class="sc">$</span>Gender, <span class="st">"Male"</span>, <span class="st">"Female"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-18" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-19" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-18" data-code-lines="1" data-code-annotation="1">Makes sure the ‘levels’ (Male and Female) in the Gender column appear with Male first</span>
+<span data-code-cell="annotated-cell-19" data-code-lines="1" data-code-annotation="1">Makes sure the ‘levels’ (Male and Female) in the Gender column appear with Male first</span>
 </dd>
 </dl>
 </div>
 </div>
 <p><br> <strong>3. Save this dataframe as an RData file</strong> in case you want to use it again without having to import the xlsx file again and formatting it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(titanic, <span class="at">file =</span> <span class="st">"titanic.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(titanic, <span class="at">file =</span> <span class="st">"titanic.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br> <br> <strong>4. Create a contingency table:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-20"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="1">1</button><span id="annotated-cell-20-1" class="code-annotation-target"><a href="#annotated-cell-20-1" aria-hidden="true" tabindex="-1"></a>titanConTab <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Count <span class="sc">~</span> Survival <span class="sc">+</span> Gender, <span class="at">data =</span> titanic)</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-20" data-target-annotation="2">2</button><span id="annotated-cell-20-2" class="code-annotation-target"><a href="#annotated-cell-20-2" aria-hidden="true" tabindex="-1"></a>titanConTab</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-21"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-21" data-target-annotation="1">1</button><span id="annotated-cell-21-1" class="code-annotation-target"><a href="#annotated-cell-21-1" aria-hidden="true" tabindex="-1"></a>titanConTab <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Count <span class="sc">~</span> Survival <span class="sc">+</span> Gender, <span class="at">data =</span> titanic)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-21" data-target-annotation="2">2</button><span id="annotated-cell-21-2" class="code-annotation-target"><a href="#annotated-cell-21-2" aria-hidden="true" tabindex="-1"></a>titanConTab</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-20" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-21" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-lines="1" data-code-annotation="1">Creates a contingency table of the counts for Survival and Gender from the titanic dataframe using the xtabs() function, and stores the results in an object called <code>titanConTab</code></span>
+<span data-code-cell="annotated-cell-21" data-code-lines="1" data-code-annotation="1">Creates a contingency table of the counts for Survival and Gender from the titanic dataframe using the xtabs() function, and stores the results in an object called <code>titanConTab</code></span>
 </dd>
-<dt data-target-cell="annotated-cell-20" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-21" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-20" data-code-lines="2" data-code-annotation="2">View the table</span>
+<span data-code-cell="annotated-cell-21" data-code-lines="2" data-code-annotation="2">View the table</span>
 </dd>
 </dl>
 </div>
@@ -938,18 +942,18 @@ Click to see the contingency table
 </div>
 <p><br> <br> <strong>5. Create a mosaic plot</strong><br> This is a nice way to visualise a contingency table.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="annotated-cell-21"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-21" data-target-annotation="1">1</button><span id="annotated-cell-21-1" class="code-annotation-target"><a href="#annotated-cell-21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty =</span> <span class="st">"s"</span>, <span class="at">las =</span> <span class="dv">2</span>)</span>
-<span id="annotated-cell-21-2"><a href="#annotated-cell-21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(<span class="fu">t</span>(titanConTab), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"firebrick"</span>, <span class="st">"goldenrod1"</span>), <span class="at">cex.axis =</span> <span class="dv">1</span>, </span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-21" data-target-annotation="2">2</button><span id="annotated-cell-21-3" class="code-annotation-target"><a href="#annotated-cell-21-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">xlab =</span> <span class="st">"Gender"</span>, <span class="at">ylab =</span> <span class="st">"Mortality"</span>, <span class="at">main =</span> <span class="st">"Mosaic Plot of Titanic Data"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="annotated-cell-22"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><button class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="1">1</button><span id="annotated-cell-22-1" class="code-annotation-target"><a href="#annotated-cell-22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty =</span> <span class="st">"s"</span>, <span class="at">las =</span> <span class="dv">2</span>)</span>
+<span id="annotated-cell-22-2"><a href="#annotated-cell-22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(<span class="fu">t</span>(titanConTab), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"firebrick"</span>, <span class="st">"goldenrod1"</span>), <span class="at">cex.axis =</span> <span class="dv">1</span>, </span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-22" data-target-annotation="2">2</button><span id="annotated-cell-22-3" class="code-annotation-target"><a href="#annotated-cell-22-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">xlab =</span> <span class="st">"Gender"</span>, <span class="at">ylab =</span> <span class="st">"Mortality"</span>, <span class="at">main =</span> <span class="st">"Mosaic Plot of Titanic Data"</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-21" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-22" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-21" data-code-lines="1" data-code-annotation="1">Makes a square plot</span>
+<span data-code-cell="annotated-cell-22" data-code-lines="1" data-code-annotation="1">Makes a square plot</span>
 </dd>
-<dt data-target-cell="annotated-cell-21" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-22" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-21" data-code-lines="3" data-code-annotation="2">Makes a mosiac plot from the titanConTab object with Gender on the x-axis and Mortality on the y-axis.</span>
+<span data-code-cell="annotated-cell-22" data-code-lines="3" data-code-annotation="2">Makes a mosiac plot from the titanConTab object with Gender on the x-axis and Mortality on the y-axis.</span>
 </dd>
 </dl>
 </div>
@@ -980,9 +984,9 @@ Click to see the mosaic plot
 </div>
 <p><br> <br> <strong>6. The chi-square contingency analysis</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>titanChiSq <span class="ot">&lt;-</span> titanConTab <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq.test</span>(<span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>titanChiSq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>titanChiSq <span class="ot">&lt;-</span> titanConTab <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">chisq.test</span>(<span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>titanChiSq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the chi-square test results">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
@@ -1011,7 +1015,7 @@ X-squared = 460.87, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
 <p><br> To see the observed (actual) counts:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>titanChiSq<span class="sc">$</span>observed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>titanChiSq<span class="sc">$</span>observed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the observed counts">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
@@ -1038,7 +1042,7 @@ Survival   Male Female
 </div>
 <p><br> To see the expected counts if the NH is true (<em>ie</em>, expected frequencies are those that one would expect if there was no influence of gender on survival.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>titanChiSq<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>titanChiSq<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the expected counts">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
@@ -1065,7 +1069,7 @@ Survival        Male   Female
 </div>
 <p><br> To see the standardised residuals</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>titanChiSq<span class="sc">$</span>stdres</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>titanChiSq<span class="sc">$</span>stdres</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the standardised residuals">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
@@ -1093,9 +1097,9 @@ Survival        Male    Female
 <p>Standardised residuals: if a value is more negative than -1.96 or higher than +1.96 for a category, there is a statistically significant difference between the observed and expected frequencies for that category. <br> <br></p>
 <p><em>NB</em> If any of the expected values are 5 or less, it is better to use <strong>Fisher’s exact test</strong>.<br> If that is the case, use the following code instead of the chi-square code above:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>titanicFish <span class="ot">&lt;-</span> titanConTab <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fisher.test</span>()</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>titanicFish </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>titanicFish <span class="ot">&lt;-</span> titanConTab <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fisher.test</span>()</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>titanicFish </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see Fisher's Exact test result">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
@@ -1129,9 +1133,9 @@ odds ratio
 </div>
 <p><br> <strong>7. Calculate effect size</strong><br> <strong>(a)</strong> For 2x2 contingency tables use the <strong>odds ratio</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>titanicOR <span class="ot">&lt;-</span> <span class="fu">oddsratio</span>(titanConTab, <span class="at">method =</span> <span class="st">"wald"</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>odds.Ratio <span class="ot">&lt;-</span> titanicOR<span class="sc">$</span>measure[<span class="dv">2</span>, ] </span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>odds.Ratio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>titanicOR <span class="ot">&lt;-</span> <span class="fu">oddsratio</span>(titanConTab, <span class="at">method =</span> <span class="st">"wald"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>odds.Ratio <span class="ot">&lt;-</span> titanicOR<span class="sc">$</span>measure[<span class="dv">2</span>, ] </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>odds.Ratio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the Odds Ratio">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
@@ -1204,8 +1208,8 @@ Click to read the Introduction
 <p>In RStudio, locate the file and set that location as your working directory.</p>
 <p><br> <strong>2. Import the file to RStudio and store it as a dataframe called <em>smoke</em>.</strong><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data to a dataframe:</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>smoke <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"mcnemar data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import the data to a dataframe:</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>smoke <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">"mcnemar data.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br><strong>3. Examine the data</strong><br></p>
 <ul>
@@ -1213,11 +1217,11 @@ Click to read the Introduction
 <li>The summarise_all(class) function shows us what type of data is stored in the dataframe.<br></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>smoke <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>smoke <span class="sc">|&gt;</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>smoke <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>smoke <span class="sc">|&gt;</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the data">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
@@ -1308,12 +1312,12 @@ Click to see the data types
 </div>
 <p>We can see that the Before and After variables have been imported as ‘character’ data. <br><br> We need to convert these to factors:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>smoke <span class="ot">&lt;-</span> smoke <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Before =</span> <span class="fu">as.factor</span>(Before),</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">After =</span> <span class="fu">as.factor</span>(After))</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>         </span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>smoke <span class="sc">|&gt;</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>smoke <span class="ot">&lt;-</span> smoke <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Before =</span> <span class="fu">as.factor</span>(Before),</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">After =</span> <span class="fu">as.factor</span>(After))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>         </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>smoke <span class="sc">|&gt;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the data types">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
@@ -1354,8 +1358,8 @@ Click to see the data types
 </div>
 <p><br> <strong>4. We can now create a contingency table called ‘<em>smokeConTab</em>’</strong><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>smokeConTab <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Count <span class="sc">~</span> Before <span class="sc">+</span> After, <span class="at">data =</span> smoke)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>smokeConTab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>smokeConTab <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Count <span class="sc">~</span> Before <span class="sc">+</span> After, <span class="at">data =</span> smoke)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>smokeConTab</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the contingency table">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
@@ -1382,9 +1386,9 @@ Before      Non-vaper Vaper
 </div>
 <p><br>We can also create a mosaic plot to visualise the contingency table data:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty =</span> <span class="st">"s"</span>, <span class="at">las =</span> <span class="dv">2</span>)        <span class="co"># makes a square plot</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(<span class="fu">t</span>(smokeConTab), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"lightgreen"</span>, <span class="st">"gold"</span>), <span class="at">cex.axis =</span> <span class="dv">1</span>, </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">xlab =</span> <span class="st">"After"</span>, <span class="at">ylab =</span> <span class="st">"Before"</span>, <span class="at">main =</span> <span class="st">"Mosaic Plot of Vaping Data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">pty =</span> <span class="st">"s"</span>, <span class="at">las =</span> <span class="dv">2</span>)        <span class="co"># makes a square plot</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(<span class="fu">t</span>(smokeConTab), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"lightgreen"</span>, <span class="st">"gold"</span>), <span class="at">cex.axis =</span> <span class="dv">1</span>, </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">xlab =</span> <span class="st">"After"</span>, <span class="at">ylab =</span> <span class="st">"Before"</span>, <span class="at">main =</span> <span class="st">"Mosaic Plot of Vaping Data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the mosaic plot">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
@@ -1412,7 +1416,7 @@ Click to see the mosaic plot
 </div>
 <p><br> <strong>5. The McNemar test</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar_test</span>(smokeConTab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar_test</span>(smokeConTab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip no-icon callout-titled" title="Click to see the McNemar test result &amp; conclusions">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
