@@ -16,6 +16,7 @@ code-annotations: select
 #| label: kable
 #| echo: false
 #| eval: true
+#| warning: false
 library(knitr)
 ```
 
@@ -44,7 +45,7 @@ library(rstatix)
 
 <br>**SELECT THE RELEVANT TAB BELOW FOR YOUR DATA**
 
-::: panel-tabset
+::::::::::::::::::::::::::::: panel-tabset
 ### **GOODNESS OF FIT**
 
 ::: {.callout-tip collapse="true" title="Click to read the Introduction" icon="true"}
@@ -749,4 +750,4 @@ P = 0.007, so there is a statistically significant association. Vapers and non-v
 :::
 
 <br> **6. Effect size: odds ratio**<br> For the McNemar test, this is simply the ratio of the larger number of people who changed behaviour divded by the smaller number of people who changed behaviour. <br><br> In this case, we had 21 people who were vapers who became non-vapers and 6 people who were non-vapers who became vapers.<br><br> Therefore the Odds Ratio = 21/6 = 3.5<br><br> Vapers were 3.5 times more likely to change their behaviour than non-vapers.
-:::
+:::::::::::::::::::::::::::::
