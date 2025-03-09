@@ -593,7 +593,20 @@ odds.Ratio |>
 Odds ratio = 11.4 The odds of dying for men were 11.4 times greater than for women.
 :::
 
-<br> **(b)** For contingency tables bigger than 2x2, *eg* a 3x2 or 3x3 table, use **Cramer's V** effect size.<br> The r script for that in this case would be:<br>
+::: {.callout-important collapse="true" title="Interpreting the Odds Ratio" icon="true"}
+The Odds ratio value depends on which category appears first for each factor in your contingency table.<br>
+<br>In this example, 'Died' appears first for the Survival factor; 'Male' appears first for the Gender factor.
+```{r}
+#| label: odds_interp
+#| echo: false
+#| eval: true
+titanConTab |>
+  kable(align = 'l')
+```
+Consequently, the odds ratio of 11.4 means that the odds of Men dying than surviving (1329/338) is 11.4 times the odds of women dying than surviving (109/316).
+:::
+
+<br><br> **(b)** For contingency tables bigger than 2x2, *eg* a 3x2 or 3x3 table, use **Cramer's V** effect size.<br> The r script for that in this case would be:<br>
 
 `titanConTab |>`<br> `cramer_v()`<br> <br> Cramer's V ranges from 0 (no association between factors) to 1 (complete association):<br>
 
